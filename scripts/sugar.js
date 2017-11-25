@@ -28,6 +28,6 @@ window.A = window.A || {
 		}
 		
 		// create the audio element
-		window.T[id] = new Howl({ src : sources });
+		window.A.t[id] = new Howl({ src : sources });
 	}
 };

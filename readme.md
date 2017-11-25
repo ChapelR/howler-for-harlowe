@@ -20,22 +20,25 @@ To define a new track, you'll need to give it a name and at least one source url
 
 All of your definitions should go either:  
  * In your [Story JavaScript area](https://twinery.org/wiki/twine2:adding_custom_javascript_and_css), beneath all the code from this repo.
- * In a [startup-tagged passage](https://twine2.neocities.org/#passagetag_startup) inside of some script tags.  
+ * In a [startup-tagged passage](https://twine2.neocities.org/#passagetag_startup) inside of some script tags.
+
 Neither method is really all that much better than the other, so go with what makes sense to you. 
 
-Here's some example of what a track definition should look like: 
+Here's an example of what a track definition should look like: 
 
 ```javascript
 A.create('title song', 'media/title.mp3')
 ```
 
-However, since different browsers accept different file formats, it might be wise to include multiple sources.  Howler will automatically identify which sources can be used by the browser, and will use the first one it can in the list.  Here's an example of a more foolproof track definition:
+However, since different browsers accept different file formats, it might be wise to include multiple sources.  Howler will automatically identify which sources can be used by the browser, and will use the first one it can in the list.  Here's an example of a more fool-proof track definition:
 
 ```javascript
 A.create('title song', ['media/title.mp3', 'media/title.ogg']);
+```
 
 -- OR --
 
+```javascript
 A.create('title song', 'media/title.mp3', 'media/title.ogg'); // will also work without the array grouping
 ```
 
@@ -128,7 +131,7 @@ Assume the following TwineScript for all the below examples:
 </script>
 ```
 
-##### Example 5: Fade one song out over two seconds and start another by fading it in.
+##### Example 5: Fade one song out over two seconds and start another by fading it in over one second.
 
 ```
 {
@@ -138,10 +141,12 @@ Assume the following TwineScript for all the below examples:
 
 (live: 2s)[
 	<script>
+		A.t['title song'].stop();
 		A.t['scary song'].play();
 		A.t['scary song'].fade(0.0, 1.0, 1000);
 	</script>
 	(stop:)
+]
 }
 ```
 
@@ -155,7 +160,7 @@ A.m.mute(true); // mute all audio
 
 #### The methods.
 
-Here's a list of global / master methods you might want to use, though there are more than these:
+Here's two of the global methods you might want to use, though there are more than these:
 
  * `A.m.mute(true/false)`: pass it `true` to mute all audio, false to unmute.
  * `A.m.volume()`: pass it a number between 0.0 and 1.0 to control the master volume.  the relative volume of the tracks will still be preserved, and scaled with the master volume.
@@ -167,12 +172,13 @@ These methods are ideal for making game-wide audio settings, like volume control
 Here's what a simple mute button might look like:
 
 ```
+<!-- it would be wise to set $muted to false in a startup-tagged passage before using this code -->
 {
-(link: 'Mute')[
+(link-repeat: 'Mute')[
 	(if: $muted)[
 		<script>A.m.mute(false);</script>
 		(set: $muted to false)
-	(else:)[
+	](else:)[
 		<script>A.m.mute(true);</script>
 		(set: $muted to true)
 	]
