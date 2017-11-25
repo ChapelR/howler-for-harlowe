@@ -5,7 +5,7 @@ window.A = window.A || {
 	m : window.Howler,
 	create : function (id, sources) {
 		if (!id || ! sources) {
-			console.log('Audio error in newTrack() -> no id or source');
+			console.log('Audio error in A.create() -> no id or source');
 			return;
 		}
 		if (Array.isArray(sources)) {
@@ -23,7 +23,7 @@ window.A = window.A || {
 			});
 		} else {
 			// type error
-			console.log('Audio error in newTrack() -> sources could not be processed');
+			console.log('Audio error in A.create() -> sources could not be processed');
 			return;
 		}
 		
