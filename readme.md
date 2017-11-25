@@ -8,6 +8,8 @@ Navigate to the scripts folder of this repo.  Copy and paste the contents of `ma
 
 If you want to use the simplified syntax mode I've made for people who aren't as comfortable with JavaScript, copy and paste the contents of `sugar.min.js` into your story’s JavaScript area below the contents of `main.js`.
 
+**Note**: These scripts don't cooperate with the undo/redo buttons and macros.  For now, I suggest using CSS to hide both buttons when using these scripts, and avoid using the associated macros.  If you need to use the history system, you shouldn't use these scripts until I can figure out a workaround.
+
 ## Documentaion
 
 To use Howler normally, refer to its documentation [here](https://github.com/goldfire/howler.js/blob/master/README.md). 
@@ -67,6 +69,7 @@ You can use any of the [Howler methods](https://github.com/goldfire/howler.js/#m
 Here's a list of track methods you might want to use, though there are more than these:
 
  * `play()` ex. `A.t['name'].play();`: plays or resumes playing the track. (note: cannot be chained, see examples)
+ * `playing()` ex. `A.t['name'].playing();`: returnd true if the current track is playing.  useful for avoiding having multiple instances of the same track playing when the user navigates back to a passage, though I can't get it to cooperate with the undo button (for now)
  * `pause()` ex. `A.t['name'].pause();`: stops playback of a track, without losing progress.
  * `stop()` ex. `A.t['name'].stop();`: stops playback and resets progess.
  * `mute()` ex. `A.t['name'].mute(true);`: mute the track (and only this track); it will continue progressing. also used to unmute the track, by giving it `false`.
@@ -77,7 +80,7 @@ Here's a list of track methods you might want to use, though there are more than
  
 #### Examples.
 
-Assume the following TwineScript for all the below examples:
+Assume the following code for all the below examples:
 
 ```
 :: audioInit [startup]
