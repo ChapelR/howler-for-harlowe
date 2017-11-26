@@ -188,3 +188,91 @@ Here's what a simple mute button might look like:
 ]
 }
 ```
+
+## Extensions 
+
+As I develop them, I'll toss some extensions up here.  The code of these extensions should always go underneath `main.js` and `sugar.min.js` (if it's included) in your story JavaScript area.
+
+### controls.js ( `A.c` )
+
+**Code Location:** `scripts/controls.min.js` or `scripts/pretty/controls.js`
+
+Adds some code to help make a mute button and a volume slider.
+
+#### Mute Switch Overview:
+
+**To create a mute button:**
+
+The main attraction here is the function `A.c.mute()`, which can be attached to links, buttons, etc to create a toggleable mute.  You can pass the function the argument `this` to cause clicking the element to add the class `.muted` to it, for some dynamic styling possiblities (see the final example below).  Failing to pass this argument has no ill effects.
+
+#### Mute Switch Examples:
+
+**Some basic examples:**
+
+```html
+<!-- using a button -->
+<button onclick='A.c.mute()'>Mute Sound</button>
+
+<!-- using a harlowe-style link -->
+<tw-link onclick='A.c.mute()'>Mute Sound</tw-link>
+
+<!-- using a standard anchor link -->
+<a href='#' onclick='A.c.mute()'>Mute Sound</a>
+```
+
+**A more advanced example:**
+
+```html
+<!-- note the passing of the `this` argument -->
+<tw-link name='mute' onclick='A.c.mute(this)'>Mute Sound</tw-link>
+```
+
+Then, in our CSS:
+
+```css
+tw-link[name='mute'] {
+	display: inline-block;
+	padding: 0.5em;
+	background-color: #eee;
+	border: 1px, #ccc, solid;
+	color: #111;
+	text-align: center;
+}
+tw-link.muted[name='mute'] {
+	background-color: #111;
+	border-color: solid;
+	color: #eee;
+}
+```
+
+#### Volume Slider Overview
+
+Under the hood, the volume slider needs to do a lot more: tracking the volume state, reacting to changes to the slider, etc.  It's a little weird to use syntax wise.  You need to define an element on the page, and then call the `A.c.volume()` function from a script, and pass the target element to the function, probably using an id.  This sounds confusing, but the examples should help out with that.
+
+#### Volume Slider Examples
+
+**Basic usage:**
+
+We need to define an html element and give it something (a name, an id, a class, etc) so that we can use that information to give it to our function.  A `<span>` element with an id is probably your best bet for this.
+
+```html
+<span id='volume'></span>
+<script>A.c.volume('#volume');</script>
+```
+
+I think the porcess is easier to understand than describe.
+
+**A few other examples using other html attributes:**
+
+You need a target element, and some way to point to it.  It doesn't matter how you do that.
+
+```html
+<!-- using a class -->
+<span class='magic-volume-place'></span><script>A.c.volume('span.magic-volume-place');</script>
+
+<!-- using a name -->
+<span name='jiminy'></span><script>A.c.volume('span[name=jiminy]');</script>
+
+<!-- using a totally made-up attribute -->
+<span data-mojo='off-the-chart'></span><script>A.c.volume('span[data-mojo=off-the-chart]');</script>
+```
