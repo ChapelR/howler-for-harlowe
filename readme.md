@@ -2,13 +2,13 @@
 
 This is a (very) slightly modified version of [Howler.js](https://howlerjs.com/) for use in the [Twine 2 story format Harlowe](https://twine2.neocities.org/). Howler gives you a variety of powerful tools for controlling audio. Using this code, you can give your Twine story some sound in a simple, reliable way.
 
+**Note**: These scripts don't cooperate with the undo/redo buttons and macros.  For now, I suggest using CSS to hide both buttons when using these scripts, and avoid using the associated macros.  If you need to use the history system, you shouldn't use these scripts until I can figure out a workaround.
+
 ## Installation
 
 Navigate to the scripts folder of this repo.  Copy and paste the contents of `main.js` into [your story’s JavaScript area](https://twinery.org/wiki/twine2:adding_custom_javascript_and_css). Then you can use Howler just as you would anywhere else using `<script>` tags in your story. 
 
 If you want to use the simplified syntax mode I've made for people who aren't as comfortable with JavaScript, copy and paste the contents of `sugar.min.js` into your story’s JavaScript area below the contents of `main.js`.
-
-**Note**: These scripts don't cooperate with the undo/redo buttons and macros.  For now, I suggest using CSS to hide both buttons when using these scripts, and avoid using the associated macros.  If you need to use the history system, you shouldn't use these scripts until I can figure out a workaround.
 
 ## Documentaion
 
@@ -201,9 +201,7 @@ Adds some code to help make a mute button and a volume slider.
 
 #### Mute Switch Overview:
 
-**To create a mute button:**
-
-The main attraction here is the function `A.c.mute()`, which can be attached to links, buttons, etc to create a toggleable mute.  You can pass the function the argument `this` to cause clicking the element to add the class `.muted` to it, for some dynamic styling possiblities (see the final example below).  Failing to pass this argument has no ill effects.
+The main attraction here is the function `A.c.mute()`, which can be attached to links, buttons, or other html elements to create a toggleable mute switch.  When used as an `onclick` handler on an html element, you can pass the function the argument `this` to cause the click to add the class `.muted` to said element, allowing for some dynamic styling possiblities (see the final example below).  Omitting the argument has no ill effects.
 
 #### Mute Switch Examples:
 
@@ -247,7 +245,7 @@ tw-link.muted[name='mute'] {
 
 #### Volume Slider Overview
 
-Under the hood, the volume slider needs to do a lot more: tracking the volume state, reacting to changes to the slider, etc.  It's a little weird to use syntax wise.  You need to define an element on the page, and then call the `A.c.volume()` function from a script, and pass the target element to the function, probably using an id.  This sounds confusing, but the examples should help out with that.
+Under the hood, the volume slider needs to do a lot more: tracking the volume state, reacting to changes to the slider, etc.  It's a little weird to use syntax wise because of this.  You need to define an html element (preferably an empty one) on the page, and then call the `A.c.volume()` function from a script and pass the target element to the function, and it will render the slider (premade in jQuery for your convenience) into the passed element.  This sounds confusing, but the examples below should help out with that.
 
 #### Volume Slider Examples
 
@@ -260,7 +258,7 @@ We need to define an html element and give it something (a name, an id, a class,
 <script>A.c.volume('#volume');</script>
 ```
 
-I think the porcess is easier to understand than describe.
+I think the process is actually easier to understand than describe.
 
 **A few other examples using other html attributes:**
 

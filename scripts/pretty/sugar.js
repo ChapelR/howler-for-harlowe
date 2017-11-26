@@ -1,5 +1,5 @@
 // sugar.js; howler for harlowe, by chapel
-// v1.0.0
+// v1.0.1
 window.A = window.A || {
 	t : {},
 	m : window.Howler,
@@ -15,12 +15,15 @@ window.A = window.A || {
 		} else if (typeof sources === 'string' && arguments.length > 2) {
 			var args = [].slice.call(arguments);
 			id = args.shift();
-			sources = args.forEach(function (a, i, arr) {
-				if (typeof a !== 'string') {
-					arr.splice(i, 1);
-				}
+			sources = (function (args) {
+				var arr = [];
+				args.forEach(function (a) {
+					if (typeof a === 'string') {
+						arr.push(a);
+					}
+				});
 				return arr;
-			});
+			}(args));
 		} else {
 			// type error
 			console.log('Audio error in A.create() -> sources could not be processed');
