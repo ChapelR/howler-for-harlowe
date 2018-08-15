@@ -1,3 +1,5 @@
+I suggest using [my fully rewritten Harlowe audio library](https://twinelab.net/harlowe-audio/#/) instead of this for most projects, which has better integration with Harlowe. This repo will probably not see many updates going forward.
+
 ## Howler for Harlowe
 
 This is a (very) slightly modified version of [Howler.js](https://howlerjs.com/) for use in the [Twine 2 story format Harlowe](https://twine2.neocities.org/). Howler gives you a variety of powerful tools for controlling audio. Using this code, you can give your Twine story some sound in a simple, reliable way.
